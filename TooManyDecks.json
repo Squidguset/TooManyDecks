@@ -3,12 +3,12 @@
 	"name": "Too Many Decks",
 	"display_name": "TMD",
 	"author": ["Squidguset","WaffleDevs"],
-	"description": "Adds 26 new decks!",
+	"description": "Adds too many decks!",
 	"prefix": "SGTMD",
 	"main_file": "main.lua",
 	"priority": 115,
 	"badge_colour": "42f587",
 	"badge_text_colour": "ffffff",
-	"version": "5.0.1",
+	"version": "6.0.0~LEP",
 	"dependencies": ["Steamodded (>=1.0.0~BETA-0323b)"]
 }

@@ -1,4 +1,4 @@
-init = function(self)
+
     --Change name of cards depending on deck+sleeve combo (thanks cryptid)
     local gcui = generate_card_ui
     function generate_card_ui(
@@ -18,7 +18,6 @@ init = function(self)
             card
             and G.GAME.selected_back.effect.center.key == "b_SGTMD_oops"
             and G.GAME.selected_sleeve == "sleeve_SGTMD_oops"
-            and not Cryptid
             and full_UI_table.name
             and type(full_UI_table.name) == "table"
             and full_UI_table.name[1].nodes
@@ -43,7 +42,6 @@ init = function(self)
             card
             and G.GAME.selected_back.effect.center.key == "b_SGTMD_fuckyou"
             and G.GAME.selected_sleeve == "sleeve_SGTMD_fuckyou"
-            and not Cryptid
             and full_UI_table.name
             and type(full_UI_table.name) == "table"
             and full_UI_table.name[1].nodes
@@ -62,9 +60,9 @@ init = function(self)
         end
         return full_UI_table
     end
-end
 
-init()
+
+
 
 
 SMODS.Gradient {
@@ -302,6 +300,8 @@ CardSleeves.Sleeve {
     apply = function(self, sleeve)
         CardSleeves.Sleeve.apply(self)
         G.E_MANAGER:add_event(Event({
+            trigger = "before",
+            delay = 1,
             func = function()
                 for _, card in ipairs(G.playing_cards) do
                     if not card:is_face(false) then
@@ -758,5 +758,41 @@ CardSleeves.Sleeve {
 			G.GAME.planet_rate = 0
 			return true 
 		end }))
+	end
+}
+
+CardSleeves.Sleeve {
+    key = "Enhanced",
+    atlas = "decks sleeves",
+    config = {hands = -1, hand_size = -1},
+     loc_vars = function(self)
+        local key
+        if self.get_current_deck_key() == "b_SGTMD_enhancement" then
+            key = self.key .. "_alt"
+            
+            self.config = {combo = true, hands = 1, hand_size = 1}
+        else
+            key = self.key
+            self.config = {hands = -1, hand_size = -1}
+        end
+        
+        return { key = key }
+        
+    end,
+    pos = {x=2,y=3},
+    apply = function(self)
+        CardSleeves.Sleeve.apply(self)
+		G.E_MANAGER:add_event(Event({
+            func = function()
+				for k, v in pairs(G.playing_cards) do
+					local enhancement = SMODS.poll_enhancement({ guaranteed = true, type_key = 'enhancement_deck' })
+
+					if pseudorandom("enhancement_proc") >.2 or self.config.combo then
+						v:set_ability(G.P_CENTERS[enhancement])
+					end
+				end
+                return true
+            end
+        }))
 	end
 }

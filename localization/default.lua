@@ -268,8 +268,43 @@ return {
                 name = "Saving Deck",
                 text = {
                     "Start run with",
-                    "{C:money,T:v_clearance_sale}Clearence Sale{},",
+                    "{C:money,T:v_clearance_sale}Clearance Sale{},",
                     "and {C:green,T:v_reroll_surplus}Reroll Surplus"
+                }
+            },
+            b_SGTMD_perkeo = {
+                name = "Perkeo's Deck",
+                text = {
+                    "{C:attention}+1{} Consumable slot after","{C:red}Boss Blind{} defeated",
+                    "{C:dark_edition,T:e_negative}Negative{} {C:attention}Jokers{} appear more"
+                }
+            },
+            b_SGTMD_chicot = {
+                name = "Chicot's Deck",
+                text = {
+                    "{C:white,X:mult}X0.75{} ante scaling",
+                    "Lose {C:money}$3{} at end of round",
+                }
+            },
+            b_SGTMD_caino = {
+                name = "Canio's Deck",
+                text = {
+                    "Start with {C:attention}Double{} the face cards",
+                    "Face cards start as {C:tarot,T:m_glass}Glass Cards{}",
+                }
+            },
+            b_SGTMD_triboulet = {
+                name = "Triboulet's Deck",
+                text = {
+                    "Retrigger every {C:attention}Face Card{}","played in last hand of round",
+                    "{C:red}-1{} Hand Size",
+                }
+            },
+            b_SGTMD_yorick = {
+                name = "Yorick's Deck",
+                text = {
+                    "{C:red}+1{} Discard {C:attention}-1{} Joker slot",
+                    "{C:white,X:mult}X0.25{} Mult for each card","discarded {C:attention}this round",
                 }
             }
         },
@@ -407,8 +442,8 @@ return {
                     "All {C:attention}Jokers{} are {C:tarot}Eternal{} and {C:money}Rental",
                     "{C:money}Money{} is limited to {C:money}$35",
                     "{C:attention}No interest or money from {C:blue}Hands{}",
-                    "Buying {C:attention}ANYTHING{} in the shop will","{C:green}reroll the shop{} for {C:attention}the full cost",
-                    "{C:inactive}(WILL reroll  regardless of if you can afford)"
+                    "Buying {C:attention}ANYTHING{} in the shop will","{C:green}reroll the shop{} for {C:attention}half the cost",
+                    "{C:inactive}(Won't reroll if you cant afford)"
                 }
             },
             sleeve_SGTMD_roffledeck = {
@@ -455,6 +490,21 @@ return {
                 text  = {
                     "Additionally start run with",
                     "{C:green,T:v_reroll_surplus}Reroll Surplus{} and {C:attention,T:v_overstock_norm}Overstock"
+                }
+            },
+            sleeve_SGTMD_Enhanced = {
+                name = "Enhancement Sleeve",
+                text = {
+                    "Every playing card can start",
+                    "with a random {C:dark_edition}Enhancement",
+                    "{C:red}-1 {C:blue}Hand{} & {C:attention}Hand Size"
+                }
+            },
+            sleeve_SGTMD_Enhanced_alt = {
+                name = "Enhancement Sleeve",
+                text = {
+                    "Every playing card starts",
+                    "with a random {C:dark_edition}Enhancement"
                 }
             },
         },
