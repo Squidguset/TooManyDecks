@@ -1185,12 +1185,20 @@ SMODS.Back {
 	pos = {x=1,y=5},
 	float_pos = {x=1,y=6},
 	float2 = {x=1,y=7},
-	config = {ante_scaling = 0.75},
-	calculate = function (self, back, context)
-		if context.end_of_round and not context.individual and not context.repetition then
-			ease_dollars(-3)
-		end
-	end,
+	config = {vouchers = {"v_clearance_sale"},ante_scaling = 0.75},
+	apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+				local ante_UI = G.hand_text_area.ante
+				G.GAME.round_resets.ante = 0
+				G.GAME.round_resets.ante_disp = number_format(G.GAME.round_resets.ante)
+				ante_UI.config.object:update()
+				G.HUD:recalculate()
+                return true
+            end
+        }))
+		
+    end,
 	card_creation = function(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append, created_card)
 		if created_card then
 		else

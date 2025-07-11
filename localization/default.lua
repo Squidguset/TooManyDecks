@@ -283,7 +283,8 @@ return {
                 name = "Chicot's Deck",
                 text = {
                     "{C:white,X:mult}X0.75{} ante scaling",
-                    "Lose {C:money}$3{} at end of round",
+                    "Start at Ante {C:attention}0{}",
+                    "Start with {T:v_clearance_sale,C:tarot}Clearance Sale"
                 }
             },
             b_SGTMD_caino = {

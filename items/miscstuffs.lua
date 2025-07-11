@@ -54,8 +54,6 @@ function  Card:set_sprites(_center,_front)
 	local cback =self.params.galdur_back or (not self.params.viewed_back and G.GAME.selected_back) or ( self.params.viewed_back and G.GAME.viewed_back)
 	if _center and _center.set == "Back" then end
 	local ret = cssref(self,_center,_front)
-	if self.children.back_float then self.children.back_float = nil end
-	if self.children.float2 then self.children.float2= nil  end
 	if _center and _center.set and _center.set ~= "Sleeve" 
 			and not self.params.stake_chip then 
 		if  cback and cback.effect.center.float_pos or _center.float_pos  then
@@ -94,7 +92,7 @@ SMODS.DrawStep {
     key = 'float_back',
     order = 60,
     func = function(self)
-		TMD.temp = self
+		
 		if self.children.float2 then
 			local cback = (not self.params.viewed_back and G.GAME.selected_back) or ( self.params.viewed_back and G.GAME.viewed_back) 
 			if cback then
