@@ -927,6 +927,38 @@ SMODS.Back {
 	end
 }
 
+SMODS.Back {
+	key = "chaos",
+	atlas = "decks",
+	pos = {x=5,y=5},
+	card_creation = function(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append, created_card)
+		if created_card or forced_key or legendary then return end
+		local types = {
+			"Joker",
+			"Enhanced",
+			"Base",
+			"Joker" -- make jokers more likely
+		}
+		local _types = {
+			Joker = "Joker",
+			Enhanced = "Enhanced",
+			Base = "Base"
+		}
+		for k,v in pairs(SMODS.ConsumableTypes) do
+			if k ~= "Unique" and k ~= "paint" then -- remove cryptids unique and TMD's paint cards
+				_types[k] = k
+				types[#types+1] = k
+			end
+		end
+		
+		if _types[_type]then
+			_type = pseudorandom_element(types,pseudoseed("sgtmd_metamorphasis"))
+		end
+
+		return {_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append}
+	end
+}
+
 SMODS.Atlas {
 	key = "lookinside",
 	path = "roffledecklookinsidephotochad.png",

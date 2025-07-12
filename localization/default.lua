@@ -307,6 +307,10 @@ return {
                     "{C:red}+1{} Discard {C:attention}-1{} Joker slot",
                     "{C:white,X:mult}X0.25{} Mult for each card","discarded {C:attention}this round",
                 }
+            },
+            b_SGTMD_chaos = {
+                name = "Chaos Deck",
+                text = {"{s:2}!!!"}
             }
         },
         Sleeve={
