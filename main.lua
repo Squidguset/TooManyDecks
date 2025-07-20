@@ -970,6 +970,9 @@ SMODS.Back {
 	key ="roffledeck",
 	atlas = "lookinside",
 	pos = {x=0,y=0},
+	calculate =function (self, back, context)
+		
+	end,
 	card_creation = function(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append, created_card)
 		if created_card or _type ~= "Joker" then return nil end
 		if pseudorandom("rofdeckya") > 0.65 then return nil end
