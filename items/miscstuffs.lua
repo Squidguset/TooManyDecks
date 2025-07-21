@@ -1,4 +1,21 @@
 -- all of this stuff doesnt have any deck it belongs to specifically, so they all are being put here
+TMD = {}
+TMD.config = SMODS.current_mod.config
+
+-- config tab 
+SMODS.current_mod.config_tab = function ()
+	return {n=G.UIT.ROOT, config={align = "cm", colour = G.C.BLACK, r = 0.1}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+      {n=G.UIT.C, config={align = "cm", padding = 0.1, minw = 6, minh = 3}, nodes={
+        create_toggle({
+                label = "Extra Content (Requires restart)",
+                ref_table = TMD.config,
+                ref_value = "Bonus",
+            }),
+      }},
+    }}
+  }}
+end
 
 -- card creation for decks
 local ccr = create_card
@@ -23,7 +40,7 @@ end
 -- talisman comp
 to_number = to_number or function (x) return x end
 
-TMD = {}
+
 
 
 -- splash screen 
@@ -47,6 +64,170 @@ SMODS.Blind {
 }
 
 
+-- credits tab
+
+G.FUNCS.change_viewed_deck_credits = function(args)
+  G.TMDviewedcreds = args.to_val
+end
+
+G.FUNCS.tmdcredcheck = function(e)
+  if (G.TMDviewedcreds ~= e.config.id) then 
+    e.config.object:remove() 
+    e.config.object = UIBox{
+      definition =  G.UIDEF.TMDCREDS(),
+      config = {offset = {x=0,y=0}, align = 'cm', parent = e}
+    }
+    e.config.id = G.TMDviewedcreds
+  end
+end
+
+function G.UIDEF.TMDCREDS(_new_option)
+  G.TMDviewedcreds = G.TMDviewedcreds or "Oops! All Sixes!"
+
+  local curr_collab = G.tmdcreds[G.TMDviewedcreds] or G.tmdcreds["Oops! All Sixes!"]
+  local collab_sprite = Sprite(0,0,0.8*G.CARD_W,0.8*G.CARD_H,G.ASSET_ATLAS["SGTMD_decks"], curr_collab.art)
+
+  return  {n=G.UIT.ROOT, config={align = "cm", colour = G.C.BLACK, r = 0.1}, nodes={
+    {n=G.UIT.R, config={align = "cm", padding = 0.1}, nodes={
+      {n=G.UIT.T, config={text = G.TMDviewedcreds, scale = 0.5, colour = G.C.WHITE}}
+    }},
+    {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
+      {n=G.UIT.C, config={align = "cm", padding = 0.1, minw = 6, minh = 3}, nodes={
+        {n=G.UIT.R, config={align = "cl", padding = 0}, nodes=G.UIDEF.multiline_credit_text(
+			{"Deck idea"..(curr_collab.both and " and art" or "")..(curr_collab.code and " and code" or "").." by "..curr_collab.cred,
+			curr_collab.arti and ("Art by {C:blue}"..curr_collab.arti) or nil})}
+      }},
+      {n=G.UIT.C, config={align = "cm", padding = 0.1, minw = 3, minh = 3}, nodes={
+        {n=G.UIT.R, config={align = "cm", padding = 0.0}, nodes={
+          {n=G.UIT.R, config={align = "cm", r = 0.3}, nodes={
+            {n=G.UIT.O, config={colour = G.C.BLUE, object = collab_sprite, hover = true, can_collide = false}},
+          }},
+        }}
+      }}
+    }}
+  }}
+end
+
+SMODS.current_mod.extra_tabs = function ()
+	return {
+		{
+			label = 'Credits',
+			tab_definition_function = function()
+				G.tmdcreds =  {
+					["Oops! All Sixes!"] = {
+						cred = "Fafneir",
+						art = {x=0,y=0}
+					},
+					["Argyle Deck"] = {
+						cred = "@postprototype",
+						art = {x=1,y=1}
+					},
+					["Fuck You"] = {
+						cred = "@nxkoo_",
+						art = {x=6,y=5}
+					},
+					["Pro Deck"] = {
+						cred = "@papyrussemi6798",
+						art = {x=0,y=3}
+					},
+					["Storage Deck"] = {
+						cred = "@helenadev",
+						art = {x=3,y=0}
+					},
+					["Shitposter Deck"] = {
+						cred = "dom2",
+						art = {x=2,y=1}
+					},
+					["Deck of Betrayal"] = {
+						cred = "@helenadev",
+						art = {x=4,y=0}
+					},
+					["Blackboard Deck"] = {
+						cred = "@helenadev",
+						art = {x=4,y=1}
+					},
+					["Gambler's Deck"] = {
+						cred = "@ezram.pearce",
+						art = {x=1,y=3}
+					},
+					["Joker Deck"] = {
+						cred = "@_tanghinh",
+						art = {x=4,y=2},
+						both = true
+					},
+					["Retro Deck"] = {
+						cred = "@lolhappy909_lol",
+						art = {x=5,y=2}
+					},
+					["Artist Deck"] = {
+						cred = "@new_usernames_bad",
+						art = {x=4,y=3}
+					},
+					["Piquet Deck"] = {
+						cred = "@postprototype",
+						art = {x=5,y=3}
+					},
+					["Pinochle Deck"] = {
+						cred = "@ezram.pearce",
+						art = {x=6,y=3}
+					},
+					["Snake Deck"] = {
+						cred = "@ldoit",
+						art = {x=6,y=1}
+					},
+					["Chaos Deck"] ={
+						cred = "@monmonmondelladella1",
+						both = true,
+						art = {x=5,y=5}
+					},
+					["Enhancement/Seal/Edition Decks"] = {
+						cred = "@waffledevs",
+						code = true,
+						art = {x=2,y=4}
+					},
+					["Contractors Deck"] = {
+						cred = "@mr.dedmonique",
+						art = {x=4,y=4}
+					},
+					["Champions Deck"] = {
+						cred = "@ldoit",
+						art = {x=5,y=4}
+					},
+					["Oddly Specific Deck"] ={
+						cred = "@new_usernames_bad",
+						art = {x=5,y=1}
+					}
+                }
+				
+
+                local middle = {n=G.UIT.R, config={align = "cm", minh = 3.4, minw = 9.4}, nodes={
+                  {n=G.UIT.O, config={id = nil, func = 'tmdcredcheck', object = Moveable()}},
+                }}
+              
+                local collab_options = {}
+                for k, v in pairs(G.tmdcreds) do
+                  collab_options[#collab_options+1] = k
+                end
+                
+                table.sort(collab_options)
+
+                G.TMDviewedcreds = collab_options[1]
+
+                return 
+                      {n=G.UIT.ROOT, config={align = "cm", padding = 0.2, colour = G.C.L_BLACK, r = 0.1, emboss =0, minh = 3, minw = 8}, nodes={
+                      {n=G.UIT.C, config={align = "cm", padding = 0.2,outline_colour = G.C.JOKER_GREY, r = 0.1, outline = 1}, nodes={
+                        create_option_cycle({options = 
+                        collab_options, opt_callback = 'change_viewed_deck_credits', current_option = 1, colour = G.C.RED, w = 4, mid = middle
+                        })
+                    }}
+                }}
+			end,
+		},
+		-- insert more tables with the same structure here
+	}
+end
+
+
 -- Set sprites for 3d decks
 local cssref = Card.set_sprites
 
@@ -66,7 +247,12 @@ function  Card:set_sprites(_center,_front)
 				self.children.back_float.states.visible = false
 				self.children.back_float.states.hover.can = false
 				self.children.back_float.states.click.can = false
-			
+		
+		else
+			if self.children.back_float then
+				self.children.back_float:remove()
+				self.children.back_float = nil
+			end
 		end
 	
 		if  cback and cback.effect.center.float2 or _center.float2  then
@@ -79,7 +265,12 @@ function  Card:set_sprites(_center,_front)
 				self.children.float2.states.visible = false
 				self.children.float2.states.hover.can = false
 				self.children.float2.states.click.can = false
-			
+		else
+			-- THANK YOUi BEPIS FOR THE FIX
+			if self.children.float2 then
+				self.children.float2:remove()
+				self.children.float2 = nil
+			end
 		end
 	end
 	return ret

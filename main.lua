@@ -676,7 +676,8 @@ SMODS.Back {
 }
 
 
-assert(SMODS.load_file("items/paint.lua"))()
+
+if  SMODS.current_mod.config.Bonus then assert(SMODS.load_file("items/paint.lua"))()
 
 SMODS.Back {
 	key = "artist",
@@ -692,6 +693,8 @@ SMODS.Back {
 		end
 	end
 }
+
+end
 
 SMODS.Back {
 	key = "ballot",
