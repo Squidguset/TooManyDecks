@@ -311,8 +311,31 @@ return {
             b_SGTMD_chaos = {
                 name = "Chaos Deck",
                 text = {"{s:2}!!!"}
+            },
+            b_SGTMD_order = {
+                name = "Order Deck",
+                text = {
+                    "{C:attention}Jokers{} in the shop appear",
+                    "{C:green}in collection order{}",
+                    "Can only buy one {C:legendary}legendary",
+                    "buying a {C:legendary}legendary{} sets {C:money}dollars to -50",
+                    "{C:inactive}(Highest rarity is Legendary)"
+
+                }
+            },
+            b_SGTMD_consume = {
+                name = "Consumers Deck",
+                text = {
+                    "{C:red}-1{} Consumable slot",
+                    "Creates a {C:Tarot}Consumable{} after each round"
+                }
             }
         },
+
+
+
+
+
         Sleeve={
 
             sleeve_SGTMD_oops = {

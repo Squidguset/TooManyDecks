@@ -196,11 +196,19 @@ SMODS.current_mod.extra_tabs = function ()
 					["Oddly Specific Deck"] ={
 						cred = "@new_usernames_bad",
 						art = {x=5,y=1}
+					},
+					["Consumers Deck"] = {
+						cred = "@ronnec_15723",
+						art = {x=7,y=6}
+					},
+					["Order Deck"] = {
+						cred = "@ldoit",
+						art = {x=7,y=5}
 					}
                 }
 				
 
-                local middle = {n=G.UIT.R, config={align = "cm", minh = 3.4, minw = 9.4}, nodes={
+                local middle = {n=G.UIT.R, config={align = "cm", padding = 0.1,minh = 3.7, minw = 9.4}, nodes={
                   {n=G.UIT.O, config={id = nil, func = 'tmdcredcheck', object = Moveable()}},
                 }}
               
@@ -214,7 +222,7 @@ SMODS.current_mod.extra_tabs = function ()
                 G.TMDviewedcreds = collab_options[1]
 
                 return 
-                      {n=G.UIT.ROOT, config={align = "cm", padding = 0.2, colour = G.C.L_BLACK, r = 0.1, emboss =0, minh = 3, minw = 8}, nodes={
+                      {n=G.UIT.ROOT, config={align = "cm", padding = 0.1, colour = G.C.L_BLACK, r = 0.1, emboss =0, minh = 4, minw = 8}, nodes={
                       {n=G.UIT.C, config={align = "cm", padding = 0.2,outline_colour = G.C.JOKER_GREY, r = 0.1, outline = 1}, nodes={
                         create_option_cycle({options = 
                         collab_options, opt_callback = 'change_viewed_deck_credits', current_option = 1, colour = G.C.RED, w = 4, mid = middle
@@ -491,3 +499,13 @@ Game.main_menu = function(change_context)
 	return ret
 end
 
+local colour = SMODS.Gradient {
+	key = "badge",
+	colours = {
+		HEX("d7d200"),
+		HEX("0099a3")
+	},
+	cycle = 12
+}
+
+SMODS.current_mod.badge_colour = colour
