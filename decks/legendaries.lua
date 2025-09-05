@@ -1,10 +1,10 @@
 
-SMODS.Back {
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "perkeo",
-	atlas = "decks",
-	pos = {x=0,y=5},
-	float_pos = {x=0,y=6},
-	float2 = {x=0,y=7},
+	atlas = "legendary",
+	pos = {x=0,y=0},
+	float_pos = {x=0,y=1},
+	float2 = {x=0,y=2},
 	calculate = function (self, back, context)
 		if context.end_of_round and G.GAME.blind.boss and not context.repetition and not context.individual then
 			G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
@@ -25,12 +25,12 @@ SMODS.Back {
 	end
 }
 
-SMODS.Back {
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "chicot",
-	atlas = "decks",
-	pos = {x=1,y=5},
-	float_pos = {x=1,y=6},
-	float2 = {x=1,y=7},
+	atlas = "legendary",
+	pos = {x=1,y=0},
+	float_pos = {x=1,y=1},
+	float2 = {x=1,y=2},
 	config = {vouchers = {"v_clearance_sale"},ante_scaling = 0.75},
 	apply = function(self)
         G.E_MANAGER:add_event(Event({
@@ -57,12 +57,12 @@ SMODS.Back {
 	end
 }
 
-SMODS.Back {
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "caino",
-	atlas = "decks",
-	pos = {x=2,y=5},
-	float_pos = {x=2,y=6},
-	float2 = {x=2,y=7},
+	atlas = "legendary",
+	pos = {x=2,y=0},
+	float_pos = {x=2,y=1},
+	float2 = {x=2,y=2},
 	config = {},
 	apply = function(self)
 		
@@ -99,12 +99,12 @@ SMODS.Back {
 	end
 }
 
-SMODS.Back {
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "triboulet",
-	atlas = "decks",
-	pos = {x=3,y=5},
-	float_pos = {x=3,y=6},
-	float2 = {x=3,y=7},
+	atlas = "legendary",
+	pos = {x=3,y=0},
+	float_pos = {x=3,y=1},
+	float2 = {x=3,y=2},
 	config = {hand_size = -1},
 	calculate =function (self, back, context)
 		if context.repetition and G.GAME.current_round.hands_left == 0 and context.other_card:is_face() and context.cardarea == G.play then
@@ -126,12 +126,12 @@ SMODS.Back {
 	end
 }
 
-SMODS.Back {
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "yorick",
-	atlas = "decks",
-	pos = {x=4,y=5},
-	float_pos = {x=4,y=6},
-	float2 = {x=4,y=7},
+	atlas = "legendary",
+	pos = {x=4,y=0},
+	float_pos = {x=4,y=1},
+	float2 = {x=4,y=2},
 	config = { discards = 1, joker_slot = -1},
 	calculate = function (self, back, context)
 		if not G.GAME.SGTMDBACKmult then G.GAME.SGTMDBACKmult = 1 end

@@ -2,6 +2,25 @@
 TMD = {}
 TMD.config = SMODS.current_mod.config
 
+-- WaffleDevs goat
+local ref = SMODS.Back.register
+function SMODS.Back.register(self)
+	if self.retro and TMD.config.Original then
+		self.pos.x = self.pos.x+1
+	end
+
+	return ref(self)
+end
+
+
+
+
+SMODS.current_mod.optional_features = function ()
+	return {
+		retrigger_joker = true
+	}
+end
+
 -- config tab 
 SMODS.current_mod.config_tab = function ()
 	return {n=G.UIT.ROOT, config={align = "cm", colour = G.C.BLACK, r = 0.1}, nodes={
@@ -12,7 +31,13 @@ SMODS.current_mod.config_tab = function ()
                 ref_table = TMD.config,
                 ref_value = "Bonus",
             }),
+			create_toggle({
+                label = "Original Deck Style (Requires restart)",
+                ref_table = TMD.config,
+                ref_value = "Original",
+            }),
       }},
+	  
     }}
   }}
 end
@@ -85,7 +110,8 @@ function G.UIDEF.TMDCREDS(_new_option)
   G.TMDviewedcreds = G.TMDviewedcreds or "Oops! All Sixes!"
 
   local curr_collab = G.tmdcreds[G.TMDviewedcreds] or G.tmdcreds["Oops! All Sixes!"]
-  local collab_sprite = Sprite(0,0,0.8*G.CARD_W,0.8*G.CARD_H,G.ASSET_ATLAS["SGTMD_decks"], curr_collab.art)
+  if TMD.config.Original and curr_collab.r then curr_collab.art.x = curr_collab.art.x +1; curr_collab.r = false end
+  local collab_sprite = Sprite(0,0,0.8*G.CARD_W,0.8*G.CARD_H,G.ASSET_ATLAS[curr_collab.atlas or "SGTMD_decks"], curr_collab.art)
 
   return  {n=G.UIT.ROOT, config={align = "cm", colour = G.C.BLACK, r = 0.1}, nodes={
     {n=G.UIT.R, config={align = "cm", padding = 0.1}, nodes={
@@ -161,15 +187,21 @@ SMODS.current_mod.extra_tabs = function ()
 					},
 					["Artist Deck"] = {
 						cred = "@new_usernames_bad",
-						art = {x=4,y=3}
+						art = {x=0,y=2},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Piquet Deck"] = {
 						cred = "@postprototype",
-						art = {x=5,y=3}
+						art = {x=0,y=1},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Pinochle Deck"] = {
 						cred = "@ezram.pearce",
-						art = {x=6,y=3}
+						art = {x=0,y=3},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Snake Deck"] = {
 						cred = "@ldoit",
@@ -187,11 +219,15 @@ SMODS.current_mod.extra_tabs = function ()
 					},
 					["Contractors Deck"] = {
 						cred = "@mr.dedmonique",
-						art = {x=4,y=4}
+						art = {x=0,y=0},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Champions Deck"] = {
 						cred = "@ldoit",
-						art = {x=5,y=4}
+						art = {x=2,y=0},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Oddly Specific Deck"] ={
 						cred = "@new_usernames_bad",
@@ -199,7 +235,9 @@ SMODS.current_mod.extra_tabs = function ()
 					},
 					["Consumers Deck"] = {
 						cred = "@ronnec_15723",
-						art = {x=7,y=6}
+						art = {x=2,y=5},
+						r=true,
+						atlas = "SGTMD_modified"
 					},
 					["Order Deck"] = {
 						cred = "@ldoit",

@@ -327,7 +327,23 @@ return {
                 name = "Consumers Deck",
                 text = {
                     "{C:red}-1{} Consumable slot",
-                    "Creates a {C:Tarot}Consumable{} after each round"
+                    "Creates a {C:tarot}Consumable{} after each round"
+                }
+            },
+            b_SGTMD_vanity = {
+                name = "Vanity Deck",
+                text = {
+                    "{C:red}-1 Discard",
+                    "When {C:attention}Removing a playing card{}",
+                    "{C:money}-5 dollars{}","{C:tarot}+1 Consumable Slot{}"
+                }
+            },
+            b_SGTMD_duck = {
+                name = "This Deck sucks ass",
+                text = {
+                    "{C:red}-1 Discard{}",
+                    "{C:attention}-1 Joker Slot",
+                    "{C:red}-1 Shop Slot"
                 }
             }
         },
