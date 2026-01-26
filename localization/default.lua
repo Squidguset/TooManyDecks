@@ -334,7 +334,7 @@ return {
                 name = "Vanity Deck",
                 text = {
                     "{C:red}-1 Discard",
-                    "When {C:attention}Removing a playing card{}",
+                    "When {C:attention}Removing a playing card{}:",
                     "{C:money}-5 dollars{}","{C:tarot}+1 Consumable Slot{}"
                 }
             },
@@ -344,6 +344,30 @@ return {
                     "{C:red}-1 Discard{}",
                     "{C:attention}-1 Joker Slot",
                     "{C:red}-1 Shop Slot"
+                }
+            },
+            b_SGTMD_weather ={
+                name = "Forecast Deck",
+                text = {
+                    "{C:mult}Mult{} is added to {C:chips}Chips{}",
+                    "{C:attention}Before multiplication{}"
+                }
+            },
+            b_SGTMD_niko = {
+                name = "THE DECK MACHINE",
+                text = {
+                    "Can never have more than",
+                    "{s:1.5,C:blue}1 Hand",
+                    "{C:white,X:mult}X1.25{} Mult",
+                    "{C:white,X:mult}XMult{C:attention} scales with ante{}"
+                }
+            },
+            b_SGTMD_bomb = {
+                name = "Countdown Deck",
+                text = {
+                    "Start with {C:green}60s{}",
+                    "Scored cards add their","value to the {C:green}Timer{}",
+                    "{C:attention,s:1.25}Don't run out of time.{}"
                 }
             }
         },

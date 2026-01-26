@@ -43,6 +43,8 @@ atlases[#atlases+1] = deckstext
 
 assert(SMODS.load_file("items/miscstuffs.lua"))()
 
+loc_colour()
+
 TMD.atlases = atlases
 TMD.Decks = {}
 

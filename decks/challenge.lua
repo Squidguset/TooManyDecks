@@ -111,3 +111,73 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 		
 	end
 }
+
+TMD.Decks[#TMD.Decks+1] = SMODS.Back {
+	key = "bomb",
+	atlas = "decks",
+	apply = function (self)
+		G.GAME.SGTMD_timer = 60
+	end,
+	calculate = function (self,card,context)
+		if context.individual and context.cardarea == G.play then
+			local mod = (context.other_card.base.id or 3)
+			G.E_MANAGER:add_event(Event{
+				func = function ()
+					play_sound("SGTMD_tick",1,.5)
+					local round_UI = G.hand_text_area.round
+					G.GAME.SGTMD_timer = G.GAME.SGTMD_timer + mod
+					local text = mod < 0 and "-" or "+"
+					attention_text({
+            		text = text..tostring(math.abs(mod)),
+            		scale = 1, 
+            		hold = 0.7,
+            		cover = round_UI.parent,
+            		cover_colour = G.C.GREEN,
+            		align = 'cm',
+            		})
+					return true
+				end
+			})
+		end
+	end
+}
+
+local upd = G.update
+
+function G:update(dt)
+	local ret = upd(G,dt)
+
+	if self.GAME and self.GAME.SGTMD_timer and not self.SETTINGS.paused then
+		self.GAME.SGTMD_timer = self.GAME.SGTMD_timer-dt
+		self.GAME.SGTMD_timerR = math.floor(self.GAME.SGTMD_timer)
+		if to_number(self.GAME.SGTMD_timerR)<= 0 and G.STATE ~= G.STATES.GAME_OVER then
+			G.GAME.blind.config.blind = G.P_BLINDS.bl_SGTMD_deckblind
+			G.STATE = G.STATES.GAME_OVER; G.STATE_COMPLETE = false 
+		end
+	end
+
+	return ret
+end
+
+function roundUI()
+	if  G.GAME.SGTMD_timer then
+		return {n=G.UIT.R, config={align = "cm", maxw = 1.35}, nodes={
+                  {n=G.UIT.T, config={text = "Time Left", minh = 0.33, scale = 0.85*0.4, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                }},
+                {n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1.2, colour = G.C.DYN_UI.BOSS_DARK, id = 'row_round_text'}, nodes={
+                  {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'SGTMD_timerR'}}, colours = {G.C.IMPORTANT},shadow = true, scale = 2*0.4}),id = 'round_UI_count'}},
+                }}
+	else
+		return {n=G.UIT.R, config={align = "cm", maxw = 1.35}, nodes={
+                  {n=G.UIT.T, config={text = localize('k_round'), minh = 0.33, scale = 0.85*0.4, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+                }},
+                {n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1.2, colour = G.C.DYN_UI.BOSS_DARK, id = 'row_round_text'}, nodes={
+                  {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'round'}}, colours = {G.C.IMPORTANT},shadow = true, scale = 2*0.4}),id = 'round_UI_count'}},
+                }}
+	end
+end
+
+SMODS.Sound{
+	key = "tick",
+	path = "Cad_lv1.ogg"
+}

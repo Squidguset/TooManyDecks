@@ -42,6 +42,19 @@ SMODS.current_mod.config_tab = function ()
   }}
 end
 
+-- Card Background force
+local ebr = ease_background_colour
+
+function ease_background_colour(args)
+	print(G.GAME.selected_back.effect.center.forcebg and true)
+	if G.GAME.selected_back.effect.center.forcebg then
+		args = G.GAME.selected_back.effect.center.forcebg
+		ebr{new_colour = args.NC, special_colour = args.SC, contrast = args.Con, tertiary_colour = args.TC}
+	else
+		ebr(args)
+	end
+end
+
 -- card creation for decks
 local ccr = create_card
 
@@ -329,7 +342,7 @@ SMODS.DrawStep {
     key = 'float_back',
     order = 60,
     func = function(self)
-		
+		if not self.config.center.unlocked then return end
 		if self.children.float2 then
 			local cback = (not self.params.viewed_back and G.GAME.selected_back) or ( self.params.viewed_back and G.GAME.viewed_back) 
 			if cback then
@@ -377,6 +390,8 @@ SMODS.DrawStep {
     key = 'float_back2',
     order = 60,
     func = function(self)
+		if not self.config.center.unlocked then return end
+
 		if self.children.float2 then
 			local cback = (not self.params.viewed_back and G.GAME.selected_back) or ( self.params.viewed_back and G.GAME.viewed_back) 
 			if cback and self.area == G.title_top then
@@ -423,6 +438,8 @@ SMODS.DrawStep {
     key = 'edition_deck',
     order = 5,
     func = function(self)
+		if not self.config.center.unlocked then return end
+
         if self.children.back then
 			local cback = self.params.galdur_back or (not self.params.viewed_back and G.GAME.selected_back) or ( self.params.viewed_back and G.GAME.viewed_back) 
 			if cback then

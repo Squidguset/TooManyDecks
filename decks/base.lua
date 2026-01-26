@@ -2,7 +2,7 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "oops",
 	config = {only_one_rank = '6', ante_scaling = 1.6},
 	atlas = "decks",
-	pos = { x = 0, y = 0},
+	pos = { x = 5, y = 0},
 	apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -536,4 +536,39 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 			}
 		end
 	end
+}
+
+TMD.Decks[#TMD.Decks+1] = SMODS.Back{
+	key = "weather",
+	atlas = "modified",
+	retro = true,
+	pos = {x=4,y=6},
+	calculate = function (self,card,context)
+		if context.final_scoring_step then
+			return {chips=mult}
+		end
+	end
+}
+
+
+G.ARGS.LOC_COLOURS.SGTMD_worldpurple = HEX('6500c4')
+
+TMD.Decks[#TMD.Decks+1] = SMODS.Back{
+	key = "niko",
+	atlas = "modified",
+	pos = {x=4,y=5},
+	retro = true,
+	forcebg = {
+		NC = G.ARGS.LOC_COLOURS.SGTMD_worldpurple,
+		SC = darken(G.C.BLACK,2),
+		Con = 1.5
+	},
+	calculate = function (self,card,context)
+		G.GAME.current_round.hands_left = math.min(G.GAME.current_round.hands_left,1)
+		if context.final_scoring_step then
+			return {
+				xmult = 1.25 + ((G.GAME.round_resets.ante-1) *.1)
+			}
+		end
+	end,
 }
