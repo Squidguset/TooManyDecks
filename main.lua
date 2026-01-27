@@ -48,6 +48,7 @@ loc_colour()
 TMD.atlases = atlases
 TMD.Decks = {}
 
+
 -- Decks revolving around suits (e.g. Argyle) loaded first so that argyle shows up first
 assert(SMODS.load_file("decks/suits.lua"))()
 -- Simpler decks (e.g. Saving)
@@ -63,5 +64,5 @@ assert(SMODS.load_file("decks/iamgoingtohaveaheadache.lua"))()
 -- Legendary themed decks 
 assert(SMODS.load_file("decks/legendaries.lua"))()
 
-if  SMODS.current_mod.config.Bonus then assert(SMODS.load_file("decks/extra.lua"))() end
+if  TMD.config.Bonus then assert(SMODS.load_file("decks/extra.lua"))() end
 if CardSleeves then assert(SMODS.load_file("items/sleeves.lua"))() end

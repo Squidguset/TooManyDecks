@@ -112,12 +112,15 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	end
 }
 
+G.C.SGTMD_TIME = HEX('4a0070')
+G.ARGS.LOC_COLOURS.SGTMD_TIME = G.C.SGTMD_TIME
 TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	key = "bomb",
 	atlas = "decks",
 	apply = function (self)
 		G.GAME.SGTMD_timer = 60
 	end,
+	pos = {x=3,y=3},
 	calculate = function (self,card,context)
 		if context.individual and context.cardarea == G.play then
 			local mod = (context.other_card.base.id or 3)
@@ -132,7 +135,7 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back {
             		scale = 1, 
             		hold = 0.7,
             		cover = round_UI.parent,
-            		cover_colour = G.C.GREEN,
+            		cover_colour = G.C.SGTMD_TIME,
             		align = 'cm',
             		})
 					return true
@@ -148,7 +151,7 @@ function G:update(dt)
 	local ret = upd(G,dt)
 
 	if self.GAME and self.GAME.SGTMD_timer and not self.SETTINGS.paused then
-		self.GAME.SGTMD_timer = self.GAME.SGTMD_timer-dt
+		self.GAME.SGTMD_timer = math.min(self.GAME.SGTMD_timer-dt,135)
 		self.GAME.SGTMD_timerR = math.floor(self.GAME.SGTMD_timer)
 		if to_number(self.GAME.SGTMD_timerR)<= 0 and G.STATE ~= G.STATES.GAME_OVER then
 			G.GAME.blind.config.blind = G.P_BLINDS.bl_SGTMD_deckblind
@@ -159,13 +162,14 @@ function G:update(dt)
 	return ret
 end
 
+
 function roundUI()
 	if  G.GAME.SGTMD_timer then
 		return {n=G.UIT.R, config={align = "cm", maxw = 1.35}, nodes={
                   {n=G.UIT.T, config={text = "Time Left", minh = 0.33, scale = 0.85*0.4, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
                 }},
                 {n=G.UIT.R, config={align = "cm", r = 0.1, minw = 1.2, colour = G.C.DYN_UI.BOSS_DARK, id = 'row_round_text'}, nodes={
-                  {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'SGTMD_timerR'}}, colours = {G.C.IMPORTANT},shadow = true, scale = 2*0.4}),id = 'round_UI_count'}},
+                  {n=G.UIT.O, config={object = DynaText({string = {{ref_table = G.GAME, ref_value = 'SGTMD_timerR'}}, colours = {G.C.SGTMD_TIME},shadow = true, scale = 2*0.4}),id = 'round_UI_count'}},
                 }}
 	else
 		return {n=G.UIT.R, config={align = "cm", maxw = 1.35}, nodes={
@@ -180,4 +184,18 @@ end
 SMODS.Sound{
 	key = "tick",
 	path = "Cad_lv1.ogg"
+}
+
+SMODS.Sound{
+	key = "music_boom",
+	path = "music_boom.ogg",
+	pitch = 1,
+	select_music_track = function (self)
+		if G.GAME and G.GAME.SGTMD_timer and TMD.config.CustomM then
+			return 9999
+		end
+	end,
+	sync = {
+		['music1'] = true
+	}
 }

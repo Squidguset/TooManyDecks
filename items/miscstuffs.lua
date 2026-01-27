@@ -36,6 +36,11 @@ SMODS.current_mod.config_tab = function ()
                 ref_table = TMD.config,
                 ref_value = "Original",
             }),
+			create_toggle({
+                label = "Custom Deck Music",
+                ref_table = TMD.config,
+                ref_value = "CustomM",
+            }),
       }},
 	  
     }}

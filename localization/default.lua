@@ -365,8 +365,8 @@ return {
             b_SGTMD_bomb = {
                 name = "Countdown Deck",
                 text = {
-                    "Start with {C:green}60s{}",
-                    "Scored cards add their","value to the {C:green}Timer{}",
+                    "Start with {C:SGTMD_TIME}60s{}",
+                    "Scored cards add their","value to the {C:SGTMD_TIME}Timer{}",
                     "{C:attention,s:1.25}Don't run out of time.{}"
                 }
             }
