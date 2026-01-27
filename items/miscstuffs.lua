@@ -260,6 +260,10 @@ SMODS.current_mod.extra_tabs = function ()
 					["Order Deck"] = {
 						cred = "@ldoit",
 						art = {x=7,y=5}
+					},
+					["Countdown Deck"] = {
+						cred = "@DuskDarf1",
+						art = {x=3,y=3}
 					}
                 }
 				
