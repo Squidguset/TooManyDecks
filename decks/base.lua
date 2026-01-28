@@ -528,6 +528,10 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 	retro = true,
 	config = {discards = -1},
 	pos = {x=2,y=6},
+	forcebg = {
+		NC = HEX('fff100'),
+		SC = HEX('fe3838')
+	},
 	calculate = function (self,card,context)
 		if context.remove_playing_cards then
 			G.consumeables:change_size(#context.removed)
@@ -586,9 +590,11 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 		end
 		if G.ROOM.children.NikoSprite then
 			local r = G.ROOM
-			nikosprite.VT.x = (r.CT.w/2) + r.CT.x
-			nikosprite.VT.y = (r.CT.h/2) + r.CT.y
-			nikosprite.VT.r = 0
+			local xoff = math.sin(love.timer.getTime()*.2)*3
+			local yoff = math.cos(love.timer.getTime()*.6)*1
+			nikosprite.VT.x = (r.CT.w/2) + r.CT.x  + xoff
+			nikosprite.VT.y = (r.CT.h/2) + r.CT.y + yoff
+			nikosprite.VT.r = (yoff)*-.05
 			nikosprite.VT.scale = 5
 		elseif nikosprite then
 			G.ROOM.children.NikoSprite = nikosprite
