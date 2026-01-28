@@ -553,6 +553,14 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 
 G.ARGS.LOC_COLOURS.SGTMD_worldpurple = HEX('6500c4')
 
+local nikoat = SMODS.Atlas{
+	key = "nikoat",
+	path = "TWM.png",
+	px = 16, py = 19
+}
+local nikosprite
+
+
 TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 	key = "niko",
 	atlas = "modified",
@@ -571,4 +579,19 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back{
 			}
 		end
 	end,
+	update = function(self,dt)
+		if not nikosprite then
+			nikosprite = Sprite(0,0,1,19/16,nikoat,{x=0,y=0})
+			G.ROOM.children.NikoSprite = nikosprite
+		end
+		if G.ROOM.children.NikoSprite then
+			local r = G.ROOM
+			nikosprite.VT.x = (r.CT.w/2) + r.CT.x
+			nikosprite.VT.y = (r.CT.h/2) + r.CT.y
+			nikosprite.VT.r = 0
+			nikosprite.VT.scale = 5
+		elseif nikosprite then
+			G.ROOM.children.NikoSprite = nikosprite
+		end
+	end
 }

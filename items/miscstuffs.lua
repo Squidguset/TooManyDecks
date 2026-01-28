@@ -79,6 +79,32 @@ create_card = function(_type, area, legendary, _rarity, skip_materialize, soulab
 	return card
 end
 
+-- timer shenanigans + Back.Update
+local upd = G.update
+
+function G:update(dt)
+	local ret = upd(G,dt)
+
+	if self.GAME and self.GAME.SGTMD_timer and not self.SETTINGS.paused then
+		self.GAME.SGTMD_timer = math.min(self.GAME.SGTMD_timer-dt,135)
+		self.GAME.SGTMD_timerR = math.floor(self.GAME.SGTMD_timer)
+		if to_number(self.GAME.SGTMD_timerR)<= 0 and G.STATE ~= G.STATES.GAME_OVER then
+			G.GAME.blind.config.blind = G.P_BLINDS.bl_SGTMD_deckblind
+			G.STATE = G.STATES.GAME_OVER; G.STATE_COMPLETE = false 
+		end
+	end
+
+	local b = G.GAME.selected_back
+	if b then
+		b = b.effect.center
+		 if b.update then
+			b:update(dt)
+		 end
+	end
+
+	return ret
+end
+
 
 -- talisman comp
 to_number = to_number or function (x) return x end

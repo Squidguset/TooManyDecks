@@ -145,22 +145,7 @@ TMD.Decks[#TMD.Decks+1] = SMODS.Back {
 	end
 }
 
-local upd = G.update
 
-function G:update(dt)
-	local ret = upd(G,dt)
-
-	if self.GAME and self.GAME.SGTMD_timer and not self.SETTINGS.paused then
-		self.GAME.SGTMD_timer = math.min(self.GAME.SGTMD_timer-dt,135)
-		self.GAME.SGTMD_timerR = math.floor(self.GAME.SGTMD_timer)
-		if to_number(self.GAME.SGTMD_timerR)<= 0 and G.STATE ~= G.STATES.GAME_OVER then
-			G.GAME.blind.config.blind = G.P_BLINDS.bl_SGTMD_deckblind
-			G.STATE = G.STATES.GAME_OVER; G.STATE_COMPLETE = false 
-		end
-	end
-
-	return ret
-end
 
 
 function roundUI()
